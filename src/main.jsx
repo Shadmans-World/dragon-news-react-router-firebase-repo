@@ -8,6 +8,7 @@ import ContextApi from "./ContextApi/ContextApi";
 import Home from "./Layouts/Home";
 import ErrorPage from "./ErrorPage/ErrorPage";
 import NewsData from "./Components/NewsData";
+import Auth from "./Layouts/Auth";
 
 
 const router = createBrowserRouter([
@@ -17,9 +18,10 @@ const router = createBrowserRouter([
     element: <Home></Home>,
     children:[
       {
-        path:"",
-        element:<Navigate to='/category/01'></Navigate>
+        path: "",
+        element: <Navigate to="/news/category/01" replace />
       },
+      
       
       {
         path:'/news/category/:category_id',
@@ -34,7 +36,17 @@ const router = createBrowserRouter([
   },
   {
     path:'/auth',
-    element:<h1>Login Layout</h1>
+    element:<Auth></Auth>,
+    children:[
+      {
+        path:"/auth/login",
+        element:<h2>Login</h2>,
+      },
+      {
+        path:"/auth/register",
+        element:<h2>Register</h2>
+      }
+    ]
   },
 
 ]);

@@ -1,7 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { FaRegStar, FaEye, FaShareAlt } from 'react-icons/fa';
 
 const NewsCard = ({ article }) => {
+    // State to toggle between truncated and full details
+    const [isExpanded, setIsExpanded] = useState(false);
+
+    // Function to toggle "Read More" state
+    const toggleReadMore = () => setIsExpanded(!isExpanded);
+
     return (
         <div className="border rounded-lg p-5 shadow-lg bg-white">
             {/* Header */}
@@ -26,19 +32,24 @@ const NewsCard = ({ article }) => {
             <h2 className="text-xl font-bold mb-3">{article.title}</h2>
 
             {/* Image */}
-            
+            <div className='h-[500px]'>
             <img 
                 src={article.thumbnail_url} 
                 alt={article.title} 
-                className="w-full  object-cover rounded-lg mb-3"
+                className="w-full h-full object-contain rounded-lg mb-3"
             />
-            
+            </div>
            
 
             {/* Description */}
             <p className="text-gray-700 mb-3">
-                {article.details.slice(0, 100)}...
-                <span className="text-red-500 font-semibold"> Read More</span>
+                {isExpanded ? article.details : `${article.details.slice(0, 100)}...`}
+                <button 
+                    onClick={toggleReadMore} 
+                    className="text-red-500 font-semibold ml-2"
+                >
+                    {isExpanded ? 'Show Less' : 'Read More'}
+                </button>
             </p>
 
             {/* Footer */}
